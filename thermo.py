@@ -2,7 +2,7 @@ import time
 import Adafruit_DHT
 import RPi.GPIO as gpio
 
-pin = 15
+pin = 17
 
 gpio.setmode(gpio.BCM)
 gpio.setup(pin, gpio.IN)
