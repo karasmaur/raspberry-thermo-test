@@ -1,36 +1,25 @@
 import time
-import board
-import adafruit_dht
+import Adafruit_DHT
+import RPi.GPIO as gpio
 
-# Initialize the DHT11 sensor on GPIO 4 (Pin 7)
-# Change board.D4 to match your data pin if you chose a different one
-dht_device = adafruit_dht.DHT11(board.D4)
+pin = 15
 
-print("Starting DHT11 sensor readings... Press Ctrl+C to exit.\n")
+gpio.setmode(gpio.BCM)
+gpio.setup(pin, gpio.IN)
 
-while True:
-    try:
-        # Read temperature and humidity values
-        temperature_c = dht_device.temperature
-        humidity = dht_device.humidity
-        
-        # Convert Celsius to Fahrenheit
-        temperature_f = temperature_c * (9 / 5) + 32
+sensor = Adafruit_DHT.DHT11
 
-        # Format and display the output
-        print("AAAIIIIIIII PAPAI  :")
-        print(temperature_c)
-
-    except RuntimeError as error:
-    # DHT sensors can be temperamental and drop readings frequently.
-        # This prevents the script from crashing when a single reading fails.
-        print(f"Reading missed: {error.args[0]}")
-        time.sleep(2.0)
-        continue
-        
-    except Exception as error:
-        dht_device.exit()
-        raise error
-
-    # The DHT11 requires a minimum 2-second delay between successful readings
-    time.sleep(2.0)
+try:
+    while True:
+        hum, temp = Adafruit_DHT.read_retry(sensor, pin)
+            
+        if hum is not None and temp is not None:
+            print(temp)
+            print(hum)
+            time.sleep(1)
+        else:
+            print("veio vazio, algum erro")
+except KeyboardInterrupt:
+    print("---STOP----")
+    gpio.cleanup()
+    pass
