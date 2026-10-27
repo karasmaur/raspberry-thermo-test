@@ -18,10 +18,10 @@ while True:
         temperature_f = temperature_c * (9 / 5) + 32
 
         # Format and display the output
-        print(f"Temp: {temperature_c:.1f}C ({temperature_f:.1f}F) | Humidity: {humidity:.1f}%")
+        print(f"Temp: {temperature_c:.1f} C | Humidity: {humidity:.1f}%")
 
     except RuntimeError as error:
-        # DHT sensors can be temperamental and drop readings frequently.
+    # DHT sensors can be temperamental and drop readings frequently.
         # This prevents the script from crashing when a single reading fails.
         print(f"Reading missed: {error.args[0]}")
         time.sleep(2.0)
