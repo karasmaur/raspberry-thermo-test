@@ -18,7 +18,7 @@ while True:
         temperature_f = temperature_c * (9 / 5) + 32
 
         # Format and display the output
-        print(f"Temp: {temperature_c:.1f}°C ({temperature_f:.1f}°F) | Humidity: {humidity:.1f}%")
+        print(f"Temp: {temperature_c:.1f}C ({temperature_f:.1f}F) | Humidity: {humidity:.1f}%")
 
     except RuntimeError as error:
         # DHT sensors can be temperamental and drop readings frequently.
